@@ -72,35 +72,6 @@
 			"response": []
 		},
 		{
-			"name": "Post Expenses",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\r\n    \"expenseType\" : \"E\",\r\n    \"amount\" : \"600\",\r\n    \"title\" : \"beer parlor\",\r\n    \"description\" : \"we 2 had beer\",\r\n    \"groupId\" : \"1\"\r\n\r\n}"
-				},
-				"url": {
-					"raw": "http://localhost:8080/expenses",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"expenses"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Post expsenses participants",
 			"request": {
 				"method": "POST",
@@ -113,10 +84,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "[\r\n    {\r\n\"share\":\".5\",\r\n\"isShareInPercentile\":\"false\",\r\n\"contribution\"  : \"600\"\r\n    },\r\n    {\r\n\"share\":\".5\",\r\n\"isShareInPercentile\":\"false\",\r\n\"contribution\"  : \"0\"\r\n    }\r\n]"
+					"raw": "{\r\n    \"teamExpenseAmount\" : \"400\",\r\n    \"description\" : \"test 2\",\r\n    \"participantDetails\" : [\r\n        {   \r\n            \"participantDetail\" : {\"emailId\":\"ka@gmail.com\"},\r\n            \"share\":\"1\",\r\n            \"contribution_exact\" : \"100\"\r\n\r\n        },\r\n        {   \r\n            \"participantDetail\" : {\"emailId\":\"ma@gmail.com\"},\r\n            \"share\":\"1\",\r\n            \"contribution_exact\" : \"300\"\r\n\r\n        }\r\n    ]\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/expenses/participants?expenses_id=3&user_id=1,2",
+					"raw": "http://localhost:8080/expenses/",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -124,78 +95,7 @@
 					"port": "8080",
 					"path": [
 						"expenses",
-						"participants"
-					],
-					"query": [
-						{
-							"key": "expenses_id",
-							"value": "3"
-						},
-						{
-							"key": "user_id",
-							"value": "1,2"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "View all expenses",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/expenses/view_all",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"expenses",
-						"view_all"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "View all expense participants",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/expenses/participants/view_all",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"expenses",
-						"participants",
-						"view_all"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "View Exp particip by id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/expenses/2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"expenses",
-						"2"
+						""
 					]
 				}
 			},
