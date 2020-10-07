@@ -1,21 +1,23 @@
 package com.splitwise.api;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.splitwise.pojo.Expenses;
-import com.splitwise.pojo.ExpensesParticipants;
-import com.splitwise.pojo.UserProfile;
-import com.splitwise.service.ExpensesParticipantsService;
 import com.splitwise.service.ExpensesService;
 import com.splitwise.service.UserService;
+import com.splitwise.vo.ExpenseDetailVO;
 
 @RestController
 public class ExpensesController {
@@ -24,47 +26,23 @@ public class ExpensesController {
 	private ExpensesService expensesService;
 	
 	@Autowired
-	private ExpensesParticipantsService expensesParticipantsService;
-
-	@Autowired
 	UserService userService;
 	
-	@RequestMapping(value="/expenses/{id}")
-	public List<ExpensesParticipants> viewAllUserExpenses(@PathVariable int id) {
-		return expensesParticipantsService.findAllExpensesForUser(id);
-	}
-
-	@RequestMapping(value="/expenses/view_all")
-	public List<Expenses> viewAllExpenses() {
-		return expensesService.findAllExpenses();
-	}
-	
 	@RequestMapping(method=RequestMethod.POST,value="/expenses")
-	public String recordExpense(@RequestBody Expenses expenses) {
-		expensesService.saveExpenseRequest(expenses);
+	public String recordExpense(@Valid @RequestBody ExpenseDetailVO expenseDetail) {
+		expensesService.saveExpenseRequest(expenseDetail);
 		return "OK";
 	}
 	
-	@RequestMapping(method=RequestMethod.POST,value="/expenses/participants")
-	public String recordExpenseParticpants(@RequestBody List<ExpensesParticipants> expensesParticipants,
-			@RequestParam("expenses_id") Integer expensesId, @RequestParam("user_id") String userId ) {
-		Expenses expenseData = expensesService.getExpenseById(expensesId);
-		String[] userIdArray = userId.split(",");
-		int count=0;
-		for(ExpensesParticipants participants: expensesParticipants) {
-			participants.setExpense(expenseData);
-			UserProfile userData = userService.getUserDetailsById(Integer.valueOf(userIdArray[count++]));
-			participants.setUserProfile(userData);
-			
-		}
-		expensesParticipantsService.saveExpensesParticipantDetails(expensesParticipants);
-		expensesParticipantsService.genrateAndPersistAggregateData(expenseData,expensesParticipants);
-		return "OK";
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public Map<String, String> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
+	    Map<String, String> errors = new HashMap<>();
+	 
+	    ex.getBindingResult().getAllErrors().forEach(error -> 
+	        errors.put("Error details:", error.getDefaultMessage()));
+	     
+	    return errors;
 	}
 	
-	@RequestMapping(value="/expenses/participants/view_all")
-	public List<ExpensesParticipants> viewAllExpensesParticipantDetails() {
-		return expensesParticipantsService.findAllExpenses();
-	}
-
 }

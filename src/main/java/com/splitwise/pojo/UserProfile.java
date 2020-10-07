@@ -1,5 +1,6 @@
 package com.splitwise.pojo;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,8 +13,10 @@ public class UserProfile {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
+	@Column(unique=true)
 	private String emailId;
 
+	@Column(unique=true)
 	private String phoneNo;
 
 	private String name;

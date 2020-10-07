@@ -4,13 +4,13 @@ public class Balance {
 
 	private int userId;
 	
-	private int balance;
+	private double balance;
 
 	public Balance() {
 		
 	}
 	
-	public Balance(int userId, int balance) {
+	public Balance(int userId, double balance) {
 		this.userId=userId;
 		this.balance=balance;
 	}
@@ -23,11 +23,11 @@ public class Balance {
 		this.userId = userId;
 	}
 
-	public int getBalance() {
+	public double getBalance() {
 		return balance;
 	}
 
-	public void setBalance(int balance) {
+	public void setBalance(double balance) {
 		this.balance = balance;
 	}
 	

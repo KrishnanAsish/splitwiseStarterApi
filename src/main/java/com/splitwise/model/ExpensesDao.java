@@ -3,10 +3,10 @@ package com.splitwise.model;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.splitwise.pojo.Expenses;
+import com.splitwise.pojo.Expense;
 
 @Repository
-public interface ExpensesDao extends CrudRepository<Expenses, Integer> {
+public interface ExpensesDao extends CrudRepository<Expense, Integer> {
 
-	public Expenses findById(int id);
+	public Expense findById(int id);
 }

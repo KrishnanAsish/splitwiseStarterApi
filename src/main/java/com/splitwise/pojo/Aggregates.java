@@ -16,13 +16,13 @@ public class Aggregates {
 	
 	private int toId;
 	
-	private int balance;
+	private double balance;
 
 	public Aggregates() {
 		
 	}
 	
-	public Aggregates(int fromId,int toId, int balance) {
+	public Aggregates(int fromId,int toId, double balance) {
 		this.fromId=fromId;
 		this.toId=toId;
 		this.balance=balance;
@@ -52,11 +52,11 @@ public class Aggregates {
 		this.toId = toId;
 	}
 
-	public int getBalance() {
+	public double getBalance() {
 		return balance;
 	}
 
-	public void setBalance(int balance) {
+	public void setBalance(double balance) {
 		this.balance = balance;
 	}
 	

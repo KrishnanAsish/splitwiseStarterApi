@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Expenses {
+public class Expense {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -14,9 +14,7 @@ public class Expenses {
 	
 	private String expenseType;
 	
-	private int amount;
-	
-	private String title;
+	private double amount;
 	
 	private String description;
 	
@@ -38,20 +36,12 @@ public class Expenses {
 		this.expenseType = expenseType;
 	}
 
-	public int getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	public String getDescription() {
@@ -69,5 +59,5 @@ public class Expenses {
 	public void setGroupId(int groupId) {
 		this.groupId = groupId;
 	}
-	
+
 }
